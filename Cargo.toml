@@ -1,0 +1,16 @@
+[workspace]
+members = [
+    "cross-llvm",
+    "xtask",
+]
+
+[workspace.dependencies]
+anyhow = "1.0.89"
+chrono = "0.4"
+clap = { version = "4.5", features = ["derive"] }
+target-lexicon = "0.12"
+thiserror = { version = "1.0.64" }
+uuid = { version = "1.10", features = ["v4"] }
+which = "6.0"
+
+cross-llvm = { path = "cross-llvm" }

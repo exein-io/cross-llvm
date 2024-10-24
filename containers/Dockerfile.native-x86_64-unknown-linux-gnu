@@ -1,0 +1,25 @@
+FROM docker.io/debian:bookworm
+
+ENV PATH="/root/.cargo/bin:/usr/lib/llvm-18/bin:${PATH}"
+
+RUN apt update \
+    && apt install -y \
+        build-essential \
+        cmake \
+        curl \
+        gnupg \
+        libzstd-dev \
+        lsb-release \
+        ninja-build \
+        software-properties-common \
+        wget \
+        zlib1g-dev \
+    && wget https://apt.llvm.org/llvm.sh \
+    && chmod +x llvm.sh \
+    && ./llvm.sh 18 \
+    && rm -f llvm.sh \
+    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+    && rustup toolchain install stable --component rust-src \
+    && rustup toolchain install nightly --component rust-src \
+    && cargo install btfdump \
+    && rm -rf /var/lib/apt/lists/*
